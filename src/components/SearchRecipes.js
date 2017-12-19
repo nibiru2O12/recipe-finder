@@ -2,22 +2,51 @@ import React,{Component} from 'react';
 import {Form,FormGroup,FormControl,ControlLabel,Button} from 'react-bootstrap';
 
 class SearchRecipes extends Component{
+
+  constructor(props){
+    super(props);
+    this.state={
+      ingredients:"",
+      dish:""
+    }
+    this.handleTextChange=this.handleTextChange.bind(this);
+    this.search=this.search.bind(this);
+  }
+
+  handleTextChange(e){
+    this.setState({
+      [e.target.name]:e.target.value
+    });
+  }
+
+  search(){
+    const url=`http://www.recipepuppy.com/api/?i=${this.state.ingredients}&q=${this.state.dish}`;
+    console.log(url);
+  }
+
   render(){
+
+    const ingredients=this.state.ingredients;
+    const dish=this.state.dish;
+
     return(
         <Form inline>
           <FormGroup>
             <ControlLabel>Ingredients</ControlLabel>
             {' '}
-            <FormControl type="text" placeholder="type Ingredients" />
+            <FormControl type="text" placeholder="type Ingredients"
+              value={ingredients} name="ingredients"
+              onChange={this.handleTextChange}/>
           </FormGroup>
           {' '}
           <FormGroup>
             <ControlLabel>Dish</ControlLabel>
             {' '}
-            <FormControl type="text" placeholder="dish" />
+            <FormControl type="text" placeholder="dish"
+              value={dish} name="dish" onChange={this.handleTextChange}/>
           </FormGroup>
           {' '}
-          <Button>Submit</Button>
+          <Button onClick={this.search}>Submit</Button>
         </Form>
     )
   }
