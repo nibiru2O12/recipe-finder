@@ -20,16 +20,13 @@ class SearchRecipes extends Component{
   }
 
   search(){
-
     const url=`http://www.recipepuppy.com/api/?i=${this.state.ingredients}&q=${this.state.dish}`;
-    console.log(url);
-    this.props.onSearch([1,2,3,4]);
-    /*
+
     fetch(url,{
       method:'GET'
     }).then(response => response.json())
-      .then(json => console.log('recipes',json));
-    */
+      .then(json => this.props.onSearch(json.results));
+
   }
 
   render(){
