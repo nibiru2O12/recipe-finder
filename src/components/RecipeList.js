@@ -10,7 +10,7 @@ class RecipeList extends Component{
         {
           recipes.map((r,i)=>{
             return(
-              <RecipeItem recipe={r} id={i} key={i} />
+              <RecipeItem recipe={r} key={i} />
             )
           })
         }
