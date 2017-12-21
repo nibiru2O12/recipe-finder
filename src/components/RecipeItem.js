@@ -1,15 +1,38 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {addFavorites} from '../actions';
+import {addFavorites,removeFavoriteByTitle} from '../actions';
 
 class RecipeItem extends Component{
+  constructor(){
+    super();
+    this.state={
+      favorite:false
+    }
+  }
+
+  favoriteClicked(recipe){
+    const current_state = this.state.favorite;
+    if(current_state){
+        this.props.removeFavoriteByTitle(recipe.title);
+    }else{
+        this.props.addFavorites(recipe);
+    }
+    this.setState({
+      favorite:!current_state
+    });
+  }
+
   render(){
     const {recipe,addFavorites} = this.props
     return(
 
       <div className="recipe-item">
-        <div onClick={()=>addFavorites(recipe)}>
-          &#9734;
+        <div onClick={()=>this.favoriteClicked(recipe)} className="star">
+          {
+            this.state.favorite
+            ? <div>&#9733;</div>
+            : <div>&#9734;</div>
+          }
         </div>
         <div className="recipe-text">
           <h4><a href={recipe.href}>{recipe.title}</a></h4>
@@ -21,4 +44,4 @@ class RecipeItem extends Component{
   }
 }
 
-export default connect(null,{addFavorites})(RecipeItem);
+export default connect(null,{addFavorites,removeFavoriteByTitle})(RecipeItem);

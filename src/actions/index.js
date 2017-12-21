@@ -1,5 +1,6 @@
 export const SET_RECIPES = "SET_RECIPES";
 export const ADD_FAVORITES ="ADD_FAVORIES";
+export const REMOVE_FAVORITES ="REMOVE_FAVORIES";
 
 export function setRecipes(items){
   const action={
@@ -15,4 +16,12 @@ export function addFavorites(recipe){
       recipe
     }
     return action;
+}
+
+export function removeFavoriteByTitle(title){
+  const action={
+    type:REMOVE_FAVORITES,
+    title
+  }
+  return action;
 }
