@@ -34,24 +34,26 @@ class SearchRecipes extends Component{
     const {dish,ingredients} = this.state;
 
     return(
-        <Form inline>
-          <FormGroup>
-            <ControlLabel>Ingredients</ControlLabel>
+        <div>
+          <Form inline>
+            <FormGroup>
+              <ControlLabel>Ingredients</ControlLabel>
+              {' '}
+              <FormControl type="text" placeholder="type Ingredients"
+                value={ingredients} name="ingredients"
+                onChange={this.handleTextChange}/>
+            </FormGroup>
             {' '}
-            <FormControl type="text" placeholder="type Ingredients"
-              value={ingredients} name="ingredients"
-              onChange={this.handleTextChange}/>
-          </FormGroup>
-          {' '}
-          <FormGroup>
-            <ControlLabel>Dish</ControlLabel>
+            <FormGroup>
+              <ControlLabel>Dish</ControlLabel>
+              {' '}
+              <FormControl type="text" placeholder="dish"
+                value={dish} name="dish" onChange={this.handleTextChange}/>
+            </FormGroup>
             {' '}
-            <FormControl type="text" placeholder="dish"
-              value={dish} name="dish" onChange={this.handleTextChange}/>
-          </FormGroup>
-          {' '}
-          <Button onClick={this.search}>Submit</Button>
-        </Form>
+            <Button onClick={this.search}>Submit</Button>
+          </Form>
+        </div>
     )
   }
 }
