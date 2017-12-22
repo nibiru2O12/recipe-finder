@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {addFavorites,removeFavoriteByTitle} from '../actions';
 
 class RecipeItem extends Component{
-  
-  constructor(){
-    super();
+
+  constructor(props){
+    super(props);
     this.state={
-      favorite:false
+      favorite:props.favorite
     }
   }
 
@@ -43,6 +43,11 @@ class RecipeItem extends Component{
       </div>
     )
   }
+}
+
+
+RecipeItem.defaultProps={
+  favorite:false
 }
 
 export default connect(null,{addFavorites,removeFavoriteByTitle})(RecipeItem);
