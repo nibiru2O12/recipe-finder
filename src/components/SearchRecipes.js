@@ -1,5 +1,9 @@
 import React,{Component} from 'react';
+import {connect} from 'react-redux';
 import {Form,FormGroup,FormControl,ControlLabel,Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+
+import {setRecipes} from '../actions';
 
 class SearchRecipes extends Component{
 
@@ -27,16 +31,17 @@ class SearchRecipes extends Component{
       mode: 'cors',
       headers:{'Access-Control-Allow-Origin':'*','Content-Type':'text/json'}
     }).then(response => response.json())
-      .then(json => this.props.onSearch(json.results));
+      .then(json => this.props.setRecipes(json.results));
 
   }
 
   render(){
 
     const {dish,ingredients} = this.state;
-
+    const favCount = this.props.favoriteRecipes.length;
     return(
         <div>
+          <h4><Link to='/favorites' className="link">Favorites {favCount>0 ? '(' + favCount + ')' : ''}</Link></h4>
           <Form inline>
             <FormGroup>
               <ControlLabel>Ingredients</ControlLabel>
@@ -60,4 +65,6 @@ class SearchRecipes extends Component{
   }
 }
 
-export default SearchRecipes
+const mapStateToProps=state=>{return state};
+
+export default connect(mapStateToProps,{setRecipes})(SearchRecipes)
