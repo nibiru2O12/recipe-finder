@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {addFavorites,removeFavoriteByTitle} from '../actions';
 
 class RecipeItem extends Component{
+  
   constructor(){
     super();
     this.state={

@@ -4,7 +4,6 @@ import RecipeItem from './RecipeItem';
 class RecipeList extends Component{
   render(){
     const {recipes} = this.props;
-    console.log(this.props);
     return(
       <div>
         {
