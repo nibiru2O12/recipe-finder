@@ -27,9 +27,7 @@ class SearchRecipes extends Component{
     const url=`http://www.recipepuppy.com/api/?i=${this.state.ingredients}&q=${this.state.dish}`;
 
     fetch(url,{
-      method:'GET',
-      mode: 'cors',
-      headers:{'Access-Control-Allow-Origin':'*','Content-Type':'text/json'}
+      method:'GET'
     }).then(response => response.json())
       .then(json => this.props.setRecipes(json.results));
 

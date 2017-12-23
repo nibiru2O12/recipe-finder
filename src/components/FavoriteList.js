@@ -14,7 +14,7 @@ class FavoriteList extends Component{
         {
           favorites.map((recipe,id)=>{
             return (
-                    <RecipeItem recipe={recipe} key={id} favorite />
+                    <RecipeItem recipe={recipe} key={recipe.title} favorite />
                   )
           })
         }
