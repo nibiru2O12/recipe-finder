@@ -11,7 +11,8 @@ class SearchRecipes extends Component{
     super(props);
     this.state={
       ingredients:"",
-      dish:""
+      dish:"",
+      isLoading:false
     }
     this.handleTextChange=this.handleTextChange.bind(this);
     this.search=this.search.bind(this);
@@ -24,18 +25,34 @@ class SearchRecipes extends Component{
   }
 
   search(){
+
+    this.setState({
+      isLoading:true,
+    });
+
+    this.props.setRecipes([]);
+
     const url=`http://www.recipepuppy.com/api/?i=${this.state.ingredients}&q=${this.state.dish}`;
 
     fetch(url,{
       method:'GET'
-    }).then(response => response.json())
+    }).then(response => {
+        this.setState({isLoading: false});
+        return response.json();
+      })
       .then(json => this.props.setRecipes(json.results));
 
+
+
+  }
+
+  componentDidMount(){
+    this.search();
   }
 
   render(){
 
-    const {dish,ingredients} = this.state;
+    const {dish,ingredients,isLoading} = this.state;
     const favCount = this.props.favoriteRecipes.length;
     return(
         <div>
@@ -58,6 +75,11 @@ class SearchRecipes extends Component{
             {' '}
             <Button onClick={this.search}>Submit</Button>
           </Form>
+          {
+            isLoading
+            ? <p>Loading...</p>
+            : ''
+          }
         </div>
     )
   }
