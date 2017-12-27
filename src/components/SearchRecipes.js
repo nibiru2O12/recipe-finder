@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Form,FormGroup,FormControl,ControlLabel,Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-import {setRecipes} from '../actions';
+import {setRecipes,isLoading} from '../actions';
 
 class SearchRecipes extends Component{
 
@@ -11,8 +11,7 @@ class SearchRecipes extends Component{
     super(props);
     this.state={
       ingredients:"",
-      dish:"",
-      isLoading:false
+      dish:""
     }
     this.handleTextChange=this.handleTextChange.bind(this);
     this.search=this.search.bind(this);
@@ -25,10 +24,6 @@ class SearchRecipes extends Component{
   }
 
   search(){
-
-    this.setState({
-      isLoading:true,
-    });
 
     this.props.setRecipes(this.state);
 
@@ -53,7 +48,8 @@ class SearchRecipes extends Component{
 
   render(){
 
-    const {dish,ingredients,isLoading} = this.state;
+    const {dish,ingredients} = this.state;
+    const {recipeIsLoading,recipes}=this.props;
     const favCount = this.props.favoriteRecipes.length;
     return(
         <div>
@@ -77,8 +73,14 @@ class SearchRecipes extends Component{
             <Button onClick={this.search}>Submit</Button>
           </Form>
           {
-            isLoading
+            recipeIsLoading
             ? <p>Loading...</p>
+            : ''
+          }
+
+          {
+            !recipeIsLoading & recipes.length===0
+            ? <p>No Recipe found. Try seaching another ingredients or dish</p>
             : ''
           }
         </div>
@@ -88,4 +90,4 @@ class SearchRecipes extends Component{
 
 const mapStateToProps=state=>{return state};
 
-export default connect(mapStateToProps,{setRecipes})(SearchRecipes)
+export default connect(mapStateToProps,{setRecipes,isLoading})(SearchRecipes)

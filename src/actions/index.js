@@ -1,12 +1,21 @@
 export const SET_RECIPES = "SET_RECIPES";
 export const ADD_FAVORITES ="ADD_FAVORIES";
 export const REMOVE_FAVORITES ="REMOVE_FAVORIES";
+export const SET_LOADING ="SET_LOADING";
 
 function receiveRecipe(items){
   const action={
     type:SET_RECIPES,
     items
   };
+  return action;
+}
+
+export function isLoading(loading = false){
+  const action={
+    type:SET_LOADING,
+    loading
+  }
   return action;
 }
 
@@ -30,11 +39,17 @@ export function setRecipes(filter){
 
   return function(dispatch){
 
+      //ses isLoading
+      dispatch(isLoading(true));
+
       //clears recipe list
       dispatch(receiveRecipe([]));
 
       return fetchRecipeJson(filter)
-      .then(json => dispatch(receiveRecipe(json.results)));
+      .then(json => dispatch(receiveRecipe(json.results)))
+      .then(()=>dispatch(isLoading(false)));
+
+
   }
 
 }

@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {SET_RECIPES,ADD_FAVORITES,REMOVE_FAVORITES} from '../actions';
+import {SET_RECIPES,SET_LOADING,ADD_FAVORITES,REMOVE_FAVORITES} from '../actions';
 
 function recipes(state=[],action){
   switch (action.type) {
@@ -8,6 +8,16 @@ function recipes(state=[],action){
     break;
   default:
     return state;
+  }
+}
+
+export function recipeIsLoading(state=false,action){
+  switch (action.type) {
+  case SET_LOADING:
+    return action.loading;
+    break;
+  default:
+    return state
   }
 }
 
@@ -29,5 +39,5 @@ function removeFavorites(state=[],title){
   });
 }
 
-const rootReducers = combineReducers({recipes,favoriteRecipes});
+const rootReducers = combineReducers({recipes,favoriteRecipes,recipeIsLoading});
 export default rootReducers;
