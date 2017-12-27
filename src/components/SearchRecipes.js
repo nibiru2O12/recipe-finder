@@ -30,8 +30,9 @@ class SearchRecipes extends Component{
       isLoading:true,
     });
 
-    this.props.setRecipes([]);
+    this.props.setRecipes(this.state);
 
+/*
     const url=`http://www.recipepuppy.com/api/?i=${this.state.ingredients}&q=${this.state.dish}`;
 
     fetch(url,{
@@ -42,7 +43,7 @@ class SearchRecipes extends Component{
       })
       .then(json => this.props.setRecipes(json.results));
 
-
+*/
 
   }
 

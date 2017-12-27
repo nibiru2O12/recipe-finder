@@ -4,13 +4,14 @@ import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import './Styles/index.css';
 
 import {Provider} from 'react-redux';
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk';
 import rootReducers from './reducers';
 
 import App from './components/App';
 import Favoriteist from './components/FavoriteList';
 
-const store = createStore(rootReducers);
+const store = createStore(rootReducers,applyMiddleware(thunk));
 store.subscribe(()=> console.log('start listening to store',store.getState()));
 
 let rootElement = document.getElementById('root');
